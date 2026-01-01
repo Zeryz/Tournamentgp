@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instructions - Pool Tournament Manager</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background: #1a1a1a; 
-            color: #eee; 
-            margin: 0; 
-            padding: 40px; 
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #1a1a1a;
+            color: #eee;
+            margin: 0;
+            padding: 40px;
             line-height: 1.6;
         }
         .container {
@@ -27,43 +27,46 @@
         a { color: #4CAF50; text-decoration: none; }
         a:hover { text-decoration: underline; }
         .back { text-align: center; margin-top: 40px; font-size: 18px; }
+        .additional-info {
+            margin-top: 40px;
+            font-size: 16px;
+            line-height: 1.7;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Pool Tournament Manager - Instructions</h1>
-        
+       
         <h2>Before Starting</h2>
         <ul>
-            <li>Type player names in the input field and press Enter to add them.</li>
-            <li>Remove players before starting by clicking the × on their tag.</li>
+            <li>Type name, then press enter to add the players to a list. You can remove the players to fix misspellings or people who have changed their mind.</li>
             <li>Choose Single or Double Elimination from the dropdown.</li>
-            <li>Click "Start Tournament" when ready (at least 2 players required).</li>
+            <li>Click "Start Tournament"</li>
         </ul>
 
         <h2>During the Tournament</h2>
         <ul>
-            <li>Click a player's name in a match to declare them the winner.</li>
-            <li>The winner is highlighted in green.</li>
-            <li>Once all matches in a round are complete, click "Generate Next Round".</li>
+            <li>To the left will be a list of people, to the right will be the matches, always 5 matches wide.</li>
+            <li>On the list of people, you will be able to see how many wins, losses, byes, and a place to remove people from the tournament. (Eliminated people will be removed from the list)</li>
+            <li>On the matches you will be able to choose a winner and change the winner. (You can only change the winner in an active round)</li>
             <li>Add late players anytime using the "Add Late Player" button.</li>
-            <li>Remove players from standings if needed (with confirmation).</li>
-            <li>Progress is automatically saved in your browser.</li>
+            <li>The button for moving on will only be shown when every match has a selected winner, so if someone leaves you have to remove them.</li>
+            <li>Every time the button is clicked to generate a new match, the matches are decided randomly, however playing the same person more than once is limited to tie breakers and forced repeats.</li>
+            <li>Every time the button is clicked the tournament will be saved for reloading in case of closing the page or hitting refresh</li>
+            <li>Matches can be repeated for first and second place, ie. someone is 6/0 with 1 bye, someone else is 6/1 with no bye and the first player wins, neither have two losses and they would have to do a rematch tie breaker to have been double eliminated.</li>
         </ul>
 
-        <h2>End of Tournament</h2>
-        <ul>
-            <li>When down to 2 players, the final match determines 1st and 2nd.</li>
-            <li>A 3rd Place Match is automatically created between the two semi-final losers.</li>
-            <li>Final placements (1st-4th) are shown on the podium.</li>
-        </ul>
-
-        <h2>Tips</h2>
-        <ul>
-            <li>Pairings are random but avoid rematches when possible.</li>
-            <li>Byes are balanced fairly.</li>
-            <li>Use "Load Saved" to resume a previous tournament.</li>
-        </ul>
+        <div class="additional-info">
+            The website should be fully functional for creating fair pool tournaments in a presentable manner, while allowing the host to change winners during rounds, add players, and remove players during rounds.<br><br>
+            The byes are completely random, if you add a player any match not marked with a win can be randomized to create a fair bye.<br><br>
+            If you remove a player with an even number of people the player in a match with the leaver receives the bye, if there is an odd number of players the player will be matched with the person that presently has the bye.<br><br>
+            During each round you can change which winner, when you start a new round the current winners can not be changed. It also saves the tournament at this point so you can refresh or close the website, then click load to restart at the same spot.
+        </div>
 
         <div class="back">
             <a href="index.html">← Back to Tournament Manager</a>
