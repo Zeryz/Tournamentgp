@@ -554,18 +554,25 @@
                 return;
             }
             let ready = getReadyPlayers();
-            if (ready.length < 2) return;
-            const newRound = [];
-            let pairingActive = ready.map(p => ({type: 'player', name: p.name}));
-            if (pairingActive.length % 2 === 1) {
-                const minByes = Math.min(...ready.map(p => p.byes));
-                const candidates = ready.filter(p => p.byes === minByes);
-                const byeP = candidates[Math.floor(Math.random() * candidates.length)];
-                byeP.byes += 1;
-                const byeSource = {type: 'player', name: byeP.name};
-                pairingActive = pairingActive.filter(s => s.name !== byeP.name);
-                newRound.push({type: 'bye', source: byeSource, id: matchIdCounter++});
+            let undecided = [];
+            rounds.forEach(round => {
+                round.forEach(item => {
+                    if (item.type !== 'bye' && item.winner === null) {
+                        undecided.push(item);
+                    }
+                });
+            });
+            let pendingSources = [];
+            if (format === 'single') {
+                pendingSources = undecided.map(item => ({type: 'winner_of', itemId: item.id}));
+            } else {
+                pendingSources = undecided.flatMap(item => [
+                    {type: 'winner_of', itemId: item.id},
+                    {type: 'loser_of', itemId: item.id}
+                ]);
             }
+            let readySources = ready.map(p => ({type: 'player', name: p.name}));
+            let pairingActive = readySources.concat(pendingSources);
             let pastMatches = new Set();
             rounds.forEach(round => {
                 round.forEach(item => {
@@ -579,6 +586,35 @@
                     }
                 });
             });
+            const newRound = [];
+            let byeSource = null;
+            let isPartial = pendingSources.length > 0;
+            if (pairingActive.length % 2 === 1) {
+                if (isPartial) {
+                    const maxByes = Math.max(...ready.map(p => p.byes), 0);
+                    const candidates = ready.filter(p => p.byes === maxByes);
+                    if (candidates.length > 0) {
+                        const leftP = candidates[Math.floor(Math.random() * candidates.length)];
+                        byeSource = readySources.find(s => s.name === leftP.name);
+                        pairingActive = pairingActive.filter(s => JSON.stringify(s) !== JSON.stringify(byeSource));
+                    }
+                } else {
+                    const minByes = Math.min(...active.map(p => p.byes));
+                    const candidates = ready.filter(p => p.byes === minByes);
+                    if (candidates.length > 0) {
+                        const byeP = candidates[Math.floor(Math.random() * candidates.length)];
+                        byeP.byes += 1;
+                        byeSource = readySources.find(s => s.name === byeP.name);
+                        pairingActive = pairingActive.filter(s => JSON.stringify(s) !== JSON.stringify(byeSource));
+                    } else if (pendingSources.length > 0) {
+                        byeSource = pendingSources[Math.floor(Math.random() * pendingSources.length)];
+                        pairingActive = pairingActive.filter(s => JSON.stringify(s) !== JSON.stringify(byeSource));
+                    }
+                }
+                if (byeSource) {
+                    newRound.push({type: 'bye', source: byeSource, id: matchIdCounter++});
+                }
+            }
             let bestShuffle = null;
             let minRematches = Infinity;
             for (let attempt = 0; attempt < 100; attempt++) {
@@ -600,16 +636,14 @@
                     if (minRematches === 0) break;
                 }
             }
-            if (bestShuffle) {
-                for (let i = 0; i < bestShuffle.length; i += 2) {
-                    newRound.push({
-                        p1: bestShuffle[i],
-                        p2: bestShuffle[i + 1],
-                        winner: null,
-                        id: matchIdCounter++,
-                        ignoreAuto: false
-                    });
-                }
+            for (let i = 0; i < bestShuffle.length; i += 2) {
+                newRound.push({
+                    p1: bestShuffle[i],
+                    p2: bestShuffle[i + 1],
+                    winner: null,
+                    id: matchIdCounter++,
+                    ignoreAuto: false
+                });
             }
             rounds.push(newRound);
             currentRoundIndex = rounds.length - 1;
@@ -637,7 +671,7 @@
                         const p2n = resolve(item.p2, true);
                         const loserName = item.winner === p1n ? p2n : p1n;
                         const loser = players.find(p => p.name === loserName);
-                        if (loser && loser.losses < maxLosses) {
+                        if (loser) {
                             loser.losses += 1;
                         }
                         if (winnerP) {
@@ -657,11 +691,11 @@
             div.innerHTML = '<h2>Standings</h2><table><tr><th>Player</th><th>Losses</th><th>Wins</th><th>Byes</th><th></th></tr></table>';
             const table = div.querySelector('table');
             let standingsPlayers = [...players].sort((a, b) => a.losses - b.losses || b.wins - a.wins || Math.random() - 0.5);
+            standingsPlayers = standingsPlayers.filter(p => p.losses < maxLosses);
             standingsPlayers.forEach(p => {
                 const row = document.createElement('tr');
-                const statusClass = p.losses >= maxLosses ? 'eliminated' : '';
                 row.innerHTML = `
-                    <td class="${statusClass}">${p.name}</td>
+                    <td>${p.name}</td>
                     <td>${p.losses}</td>
                     <td>${p.wins}</td>
                     <td>${p.byes}</td>
