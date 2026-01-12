@@ -51,20 +51,23 @@
 
         <h2>During the Tournament</h2>
         <ul>
-            <li>To the left will be a list of people, to the right will be the matches, always 5 matches wide.</li>
-            <li>On the list of people, you will be able to see how many wins, losses, byes, and a place to remove people from the tournament. (Eliminated people will be removed from the list)</li>
-            <li>On the matches you will be able to choose a winner and change the winner. (You can only change the winner in an active round)</li>
-            <li>Add late players anytime using the "Add Late Player" button or remove somone who left early in the scoring area.</li>
-            <li>The button for moving on will only be shown when every match has a selected winner, so if someone leaves you have to remove them.</li>
-            <li>Every time the button is clicked to generate a new match, the matches are decided randomly, however playing the same person more than once is limited to tie breakers and forced repeats.</li>
+            <li>To the left will be a list of people, to the right will be the matches, always displayed 5 matches wide.</li>
+            <li>To the Right:
+                <li>The button for moving on will shown once there are enough people for a new match.</li>
+                <li>Every time the button is clicked to generate a new match, the matches are decided randomly, however playing the same person more than once is limited to tie breakers and forced repeats.</li>
+            <li>To the Left/Top:
+                <li>On the list of people, you will be able to see how many wins, losses, byes, and a place to remove people from the tournament. (Eliminated people will be removed from the list)</li>
+                <li>Add late players anytime using the "Add Late Player" button or remove somone who left early in the scoring area.</li>
+                <li>There are 5 matches in a grid, the first two are protected from change, and the winner can be changed until it effects a declared match.</li>
             <li>Every time the button is clicked the tournament will be saved for reloading in case of closing the page or hitting refresh</li>
         </ul>
 
         <div class="additional-info">
             The website should be fully functional for creating fair pool tournaments in a presentable manner, while allowing the host to change winners during rounds, add players, and remove players during rounds.<br><br>
-            The byes are completely random, if you add a player any match not marked with a win can be randomized to create a fair bye.<br><br>
+            The byes are completely random, if you add a player any match not marked with a win can be randomized to create a fair bye.
+            This should be fixed in iteration two, the first two games without a winnner chosen should be protected from changin while adding or removing a player.<br><br>
             If you remove a player with an even number of people the player in a match with the leaver receives the bye, if there is an odd number of players the player will be matched with the person that presently has the bye.<br><br>
-            Matches can be repeated for first and second place, ie. someone is 6/0 with 1 bye, someone else is 6/1 with no bye and the first player wins, neither have two losses and they would have to do a rematch tie breaker to have been double eliminated.
+            Matches can be repeated for first and second place, ie. someone is 6/0 with 1 bye, someone else is 6/1 with no bye and the second player wins, neither have two losses and they would have to do a rematch tie breaker to have been double eliminated.
         </div>
 
         <div class="back">
