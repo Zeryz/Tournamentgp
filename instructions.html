@@ -36,44 +36,46 @@
             border-radius: 8px;
             border-left: 4px solid #4CAF50;
         }
+        footer {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Pool Tournament Manager - Instructions</h1>
-       
+      
         <h2>Before Starting</h2>
         <ul>
-            <li>Type name, then press enter to add the players to a list. You can remove the players to fix misspellings or people who have changed their mind.</li>
+            <li>Type name, then press enter to add the players to a list.</li>
+            <li> You can remove the players to fix misspellings or people who have changed their mind about playing.</li>
             <li>Choose Single or Double Elimination from the dropdown.</li>
             <li>Click "Start Tournament"</li>
+            <li>Every time the button is clicked the tournament will be saved for reloading in case of closing the page or hitting refresh.</li>
         </ul>
-
         <h2>During the Tournament</h2>
         <ul>
-            <li>To the left will be a list of people, to the right will be the matches, always displayed 5 matches wide.</li>
+            <li>To the left will be a list of people, to the right will be the matches.</li>
             <li>To the Right:
-                <li>The button for moving on will shown once there are enough people for a new match.</li>
+                <li>The button for moving on will be shown once there are enough people for a new match.</li>
                 <li>Every time the button is clicked to generate a new match, the matches are decided randomly, however playing the same person more than once is limited to tie breakers and forced repeats.</li>
+            <li>There are 5 matches in a grid and the winner can be changed until it effects a future made match.</li>
             <li>To the Left/Top:
                 <li>On the list of people, you will be able to see how many wins, losses, byes, and a place to remove people from the tournament. (Eliminated people will be removed from the list)</li>
-                <li>Add late players anytime using the "Add Late Player" button or remove somone who left early in the scoring area.</li>
-                <li>There are 5 matches in a grid, the first two are protected from change, and the winner can be changed until it effects a declared match.</li>
-            <li>Every time the button is clicked the tournament will be saved for reloading in case of closing the page or hitting refresh</li>
+                <li>Add late players anytime using the "Add Late Player" button. This will not disrupt the first two unfinished games and will pair the new person versus the bye.</li>
+               
         </ul>
-
         <div class="additional-info">
             The website should be fully functional for creating fair pool tournaments in a presentable manner, while allowing the host to change winners during rounds, add players, and remove players during rounds.<br><br>
-            The byes are completely random, if you add a player any match not marked with a win can be randomized to create a fair bye.
-            This should be fixed in iteration two, the first two games without a winnner chosen should be protected from changin while adding or removing a player.<br><br>
-            If you remove a player with an even number of people the player in a match with the leaver receives the bye, if there is an odd number of players the player will be matched with the person that presently has the bye.<br><br>
+            If you remove a player, with an even number of people, the player in a match with the leaver receives the bye, if there is an odd number of players the player will be matched with the person that presently has the bye.<br><br>
             Matches can be repeated for first and second place, ie. someone is 6/0 with 1 bye, someone else is 6/1 with no bye and the second player wins, neither have two losses and they would have to do a rematch tie breaker to have been double eliminated.
         </div>
-
         <footer>
             <a href="https://github.com/Zeryz/Tournamentgp" target="_blank">GitHub/Code</a>
         </footer>
     </div>
 </body>
-    
+   
 </html>
